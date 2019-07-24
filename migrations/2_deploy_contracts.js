@@ -1,11 +1,12 @@
-var Token = artifacts.require("Token.sol");
-var Blog = artifacts.require("Blog.sol");
+const Token = artifacts.require("Token.sol");
+const Blog = artifacts.require("Blog.sol");
 
-var firstPost = "This is the first post."
+const firstPost = "This is the first post." //need to be changed for live
+const firstPostTimestamp = 1529798400000 // need to be changed for live
 
 module.exports = function(deployer) {
   deployer.deploy(Token, "KrivaChain", "KRC").then(function() {
-    return deployer.deploy(Blog, Token.address, firstPost);
+    return deployer.deploy(Blog, Token.address, firstPost, firstPostTimestamp);
   }).then(function() {
     return deployer.link(Token, Blog);
   }).then(function() {

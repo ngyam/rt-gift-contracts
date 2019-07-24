@@ -11,6 +11,7 @@
     "ganache": "scripts/ganache_start.sh",
     "ganache:start": "npm run ganache",
     "ganache:stop": "scripts/ganache_stop.sh",
+    "migrate:volta": "npx truffle migrate --network volta",
     "lint:solhint": "npx solhint \"contracts/**/*.sol\""
   },
   "repository": {
@@ -31,7 +32,9 @@
     "mocha": "^6.1.4",
     "openzeppelin-solidity": "^2.3.0",
     "solhint": "^2.1.0",
-    "truffle": "^5.0.25",
-    "web3": "1.0.0-beta.37"
-  }
+    "truffle": "^5.0.28",
+    "truffle-hdwallet-provider": "^1.0.14",
+    "web3": "1.2.0"
+  },
+  "devDependencies": {}
 }

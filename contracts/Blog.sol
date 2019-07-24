@@ -1,15 +1,16 @@
 pragma solidity ^0.5.9;
 
 import "./Token.sol";
-import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract Blog {
 
+    /*
     struct Multihash {
         bytes32 _hash;
         uint8 _hashfunction;
         uint8 _size;
     }
+    */
 
     struct BlogEntry {
         string post;
@@ -22,12 +23,12 @@ contract Blog {
 
     event BlogPost(address poster, uint256 timestamp, uint256 postId);
 
-    constructor(address tokenAddress, string memory firstPost)
+    constructor(address tokenAddress, string memory firstPost, uint256 _timestamp)
         public
     {
         token = Token(tokenAddress);
         if ( bytes(firstPost).length != 0) {
-            _newEntry(BlogEntry(firstPost, block.timestamp));
+            _newEntry(BlogEntry(firstPost, _timestamp));
         }
     }
 
