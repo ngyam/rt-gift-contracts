@@ -54,7 +54,8 @@ module.exports = {
       confirmations: 1,
       from: "0x2daa43fbcf5a5a7518b45665cc00d577f080f325",
       provider: () => new HDWalletProvider(fs.readFileSync(path.resolve(cwd, process.env.SECRET_PATH), 'utf-8').trim(), 'https://volta-rpc.energyweb.org'),
-      production: true
+      production: true,
+      skipDryRun: true
     },
 
     // Another network with more advanced options...

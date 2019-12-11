@@ -3,6 +3,7 @@ pragma solidity ^0.5.9;
 import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
+
 /**
  * @title Standard ERC20 token
  *
@@ -27,12 +28,12 @@ contract Token is Ownable {
 
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
-    event Burn(address indexed burner, uint256 value);
+    event Burn(address indexed burner, address indexed owner, uint256 value);
 
     mapping (address => mapping (address => uint256)) internal allowed;
     mapping(address => uint256) balances;
 
-    uint256 totalSupply_ = 30;
+    uint256 totalSupply_ = 30 ether;
 
     string public name;
     string public symbol;
@@ -210,7 +211,6 @@ contract Token is Ownable {
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
 
-        emit Burn(_who, _value);
-        emit Transfer(_who, address(0), _value);
+        emit Burn(msg.sender, _who, _value);
     }
 }

@@ -2,6 +2,7 @@ pragma solidity ^0.5.9;
 
 import "./Token.sol";
 
+
 contract Blog {
 
     /*
@@ -13,8 +14,10 @@ contract Blog {
     */
 
     struct BlogEntry {
-        string post;
         uint256 timestamp;
+        bytes16 lat;
+        bytes16 lon;
+        string post;
         //Multihash _picture;
     }
 
@@ -23,12 +26,12 @@ contract Blog {
 
     event BlogPost(address poster, uint256 timestamp, uint256 postId);
 
-    constructor(address tokenAddress, string memory firstPost, uint256 _timestamp)
+    constructor(address tokenAddress, uint256 _timestamp, bytes16 _lat, bytes16 _lon, string memory firstPost)
         public
     {
         token = Token(tokenAddress);
         if ( bytes(firstPost).length != 0) {
-            _newEntry(BlogEntry(firstPost, _timestamp));
+            _newEntry(BlogEntry(_timestamp, _lat, _lon, firstPost));
         }
     }
 
@@ -53,9 +56,14 @@ contract Blog {
     function getEntry(uint256 _id)
         external
         view
-        returns (uint256, string memory)
+        returns (uint256, bytes16, bytes16, string memory)
     {
-        return (blogEntries[_id].timestamp, blogEntries[_id].post);
+        return (
+            blogEntries[_id].timestamp,
+            blogEntries[_id].lat,
+            blogEntries[_id].lon,
+            blogEntries[_id].post
+        );
     }
 
     function getTokenAddress()
@@ -66,14 +74,14 @@ contract Blog {
         return address(token);
     }
 
-    function post(string memory _post)
+    function post(string memory _post, bytes16 _lat, bytes16 _lon)
         public
-        hasFund(msg.sender, 1)
+        hasFund(msg.sender, 1 ether)
         notEmpty(_post)
         returns (uint)
     {
-        token.burn(msg.sender, 1);
-        return _newEntry(BlogEntry(_post, block.timestamp));
+        token.burn(msg.sender, 1 ether);
+        return _newEntry(BlogEntry(block.timestamp, _lat, _lon, _post));
     }
 
     function _newEntry(BlogEntry memory _entry)
