@@ -1,10 +1,11 @@
 const Token = artifacts.require("Token.sol");
 const Blog = artifacts.require("Blog.sol");
 
-const firstPost = "This is the first post." //need to be changed for live
-const firstPostTimestamp = 1529798400000 // need to be changed for live
-const lat = web3.utils.utf8ToHex("-58.12345678")
-const lon = web3.utils.utf8ToHex("-179.12345678")
+const firstPost = "You got married, congratulations! May much joy, happiness, & love accompany you on this life-journey together. ~ Eni & Adam"
+const firstPostTimestamp = 1529157600
+
+const lat = web3.utils.utf8ToHex("47.527422")
+const lon = web3.utils.utf8ToHex("19.037228")
 
 
 module.exports = function(deployer) {

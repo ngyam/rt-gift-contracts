@@ -22,6 +22,7 @@ const path = require('path');
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const cwd = path.resolve('.'); // cwd only resolved correctly from here
 
+require('dotenv').config();
 
 module.exports = {
   /**
@@ -56,6 +57,15 @@ module.exports = {
       provider: () => new HDWalletProvider(fs.readFileSync(path.resolve(cwd, process.env.SECRET_PATH), 'utf-8').trim(), 'https://volta-rpc.energyweb.org'),
       production: true,
       skipDryRun: true
+    },
+
+    main: {
+      network_id: "1",
+      confirmations: 1,
+      from: process.env.FROM,
+      provider: () => new HDWalletProvider( process.env.PRIVATE_KEY, process.env.ENDPOINT),
+      production: true,
+      skipDryRun: false
     },
 
     // Another network with more advanced options...
