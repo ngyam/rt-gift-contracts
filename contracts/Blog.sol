@@ -66,6 +66,33 @@ contract Blog {
         );
     }
 
+    function getTimestamp(uint256 _id)
+        external
+        view
+        returns (uint256)
+    {
+        return blogEntries[_id].timestamp;
+    }
+
+    function getCoordinates(uint256 _id)
+        external
+        view
+        returns (bytes16, bytes16)
+    {
+        return (
+            blogEntries[_id].lat,
+            blogEntries[_id].lon
+        );
+    }
+
+    function getMessage(uint256 _id)
+        external
+        view
+        returns (string memory)
+    {
+        return blogEntries[_id].post;
+    }
+
     function getTokenAddress()
         external
         view
